@@ -7,16 +7,31 @@
 /*  ================== */
 
 /** 1) Install & Set up mongoose */
-
+const mongoose = require('mongoose');
 // Add `mongodb` and `mongoose` to the project's `package.json`. Then require 
 // `mongoose`. Store your **mLab** database URI in the private `.env` file 
 // as `MONGO_URI`. Connect to the database using `mongoose.connect(<Your URI>)`
 
-
+mongoose.connect(process.env.MONGO_URI);
 /** # SCHEMAS and MODELS #
 /*  ====================== */
 
 /** 2) Create a 'Person' Model */
+var Schema = mongoose.Schema;
+
+var personSchema = new Schema({
+name: {
+type: String,
+required: true
+},
+age: Number,
+favoriteFoods: [String]
+});/* = */
+
+var Person = mongoose.model("Person", personSchema);
+
+
+
 
 // First of all we need a **Schema**. Each schema maps to a MongoDB collection
 // and defines the shape of the documents within that collection. Schemas are
@@ -38,7 +53,6 @@
 
 // <Your code here >
 
-var Person /* = <Your Model> */
 
 // **Note**: GoMix is a real server, and in real servers interactions with
 // the db are placed in handler functions, to be called when some event happens
