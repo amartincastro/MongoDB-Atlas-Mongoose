@@ -31,8 +31,6 @@ favoriteFoods: [String]
 var Person = mongoose.model("Person", personSchema);
 
 
-
-
 // First of all we need a **Schema**. Each schema maps to a MongoDB collection
 // and defines the shape of the documents within that collection. Schemas are
 // building block for Models. They can be nested to create complex models,
@@ -89,10 +87,14 @@ var Person = mongoose.model("Person", personSchema);
 //    ...do your stuff here...
 // });
 
-var createAndSavePerson = function(done) {
+const createAndSavePerson = function(done) {
   
-  done(null /*, data*/);
-
+  let me = new Person({name: 'Name', age: 69, favoriteFoods: ['Food1', 'Food2']});
+  me.save((err, data) => {
+    
+    if (err) return done(err);
+    return done(null,data);
+  })
 };
 
 /** 4) Create many People with `Model.create()` */
