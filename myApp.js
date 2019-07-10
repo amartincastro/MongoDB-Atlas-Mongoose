@@ -296,9 +296,15 @@ var removeManyPeople = function(done) {
 
 var queryChain = function(done) {
   var foodToSearch = "burrito";
+  let findPeople = Person.find(function(err, data) {
+    if (data.favoriteFoods.indexOf(foodToSearch) > -1) {
+      return data;
+    }
+  }).sort({ name: 'asc'}).limit(2).select('-age');
   
-  done(null/*, data*/);
-};
+  findPeople.exec(function(err, data) {
+    err ? done(err) : done(err, data);
+  });
 
 /** **Well Done !!**
 /* You completed these challenges, let's go celebrate !
