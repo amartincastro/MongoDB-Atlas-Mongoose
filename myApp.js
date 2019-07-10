@@ -296,16 +296,12 @@ var removeManyPeople = function(done) {
 
 var queryChain = function(done) {
   var foodToSearch = "burrito";
-  let findPeople = Person.find(function(error, data) {
-    if (data.favoriteFoods.indexOf(foodToSearch) > -1) {
-      return data;
-    }
-  }).sort({ name: 'asc' }).limit(2).select('-age');
-
-  findPeople.exec(function(error, data) {
-    error ? done(error) : done(error, data);
-  });
-};
+  Person.find({favoriteFoods: foodToSearch}, function(err, data){
+  if(err) done(err);
+  else
+  done(null, data);
+  }).sort({name: 'asc' }).limit(2).select('-age').exec();
+  };
 
 /** **Well Done !!**
 /* You completed these challenges, let's go celebrate !
